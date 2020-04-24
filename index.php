@@ -1,5 +1,9 @@
 <?php
 require_once 'core/init.php';
 
-DB::getInstance();
 
+$user = DB::getInstance()->update('users', 5, array(
+    'username' => 'Dale',
+    'password' => 'new pass',
+    'salt' => 'new salt'
+));
