@@ -4,17 +4,18 @@ session_start();
 
 $GLOBALS['config'] = array(
     'mysql' => array(
-        'host' => '127.0.0.1',
+        'host'     => '127.0.0.1',
         'username' => 'root',
         'password' => '',
-        'db' => 'lr'
+        'db'       => 'lr'
     ),
     'remember' => array(
-        'cookie_name' => 'hash',
-        'cookie_epiry' => 604800 // month in seconds
+        'cookie_name'  => 'hash',
+        'cookie_epiry' => 604800   // month in seconds
     ),
     'session' => array(
-        'session_name' => 'user'
+        'session_name' => 'user',
+        'token_name'   => 'token'
     )
     
 );
