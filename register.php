@@ -32,8 +32,9 @@ if(Input::exists()) {
 
 		if($validation->passed()) {
 			// register user
-			echo 'passed';
-			
+
+			Session::flash('success', 'You registered successfully!');
+			header('Location: index.php');
 		} else {
 			foreach($validation->errors() as $error) {
 				echo $error . '<br>';
