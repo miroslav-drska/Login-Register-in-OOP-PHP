@@ -6,8 +6,10 @@
     <title>Login</title>
 </head>
 
+<?php include 'core/init.php'; ?>
+
 <?php
-    if(Input::exists()) {
+    if(Input::exists()) { 
         if(Token::check(Input::get('token'))) {
 
             $validate = new Validate();
@@ -17,7 +19,15 @@
             ));
 
             if($validation->passed()) {
-                // log user in
+                $user = new User();
+                $login = $user->login(Input::get('username'), Input::get('password'));
+                
+                if($login) {
+                    echo 'Success';
+                } else {
+                    echo 'sorry, login failed';
+                }
+
             } else {
                 foreach($validation->errors() as $error) {
                     echo $error . '<br>';
@@ -37,7 +47,7 @@
             <label for="password">Password</label>
             <input type="password" name="password" id="password" autocomplete="off">
         </div>
-        <input type="hidden" name="token" value="<php echo Token::generate(); ?>">
+        <input type="hidden" name="token" value="<?php echo Token::generate(); ?>">
         <input type="submit" value="Log In">
     </form>
 </body>
