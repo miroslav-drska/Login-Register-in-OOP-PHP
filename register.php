@@ -31,11 +31,10 @@ if(Input::exists()) {
 		));
 
 		if($validation->passed()) {
+			
+			
 			// register user
 			$user = new User();
-
-
-			
 
 			try {
 				$user->create(array(
@@ -45,6 +44,10 @@ if(Input::exists()) {
 					'joined'    => date('Y-m-d H:i:s'),
 					'usergroup' => 1,
 				));
+
+				Session::flash('home', 'You have been registered and can now log in!');
+				Redirect::to('index.php');
+
 			} catch(Exception $e) {
 				die($e->getMessage());
 			}
