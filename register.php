@@ -32,9 +32,22 @@ if(Input::exists()) {
 
 		if($validation->passed()) {
 			// register user
+			$user = new User();
 
-			Session::flash('success', 'You registered successfully!');
-			header('Location: index.php');
+
+			
+
+			try {
+				$user->create(array(
+					'username'  => Input::get('username'),
+					'password'  => Hash::make(Input::get('password')),
+					'name'      => Input::get('name'),
+					'joined'    => date('Y-m-d H:i:s'),
+					'usergroup' => 1,
+				));
+			} catch(Exception $e) {
+				die($e->getMessage());
+			}
 		} else {
 			foreach($validation->errors() as $error) {
 				echo $error . '<br>';
