@@ -12,7 +12,7 @@ class Hash {
     }
 
     public static function unique() {
-        // return self::make();
+        return md5(uniqid());
 
     }
 }
