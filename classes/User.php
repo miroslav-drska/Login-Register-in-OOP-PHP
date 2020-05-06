@@ -23,9 +23,19 @@ class User {
                 }
             }
         } else {
-            $this->find()->user($user);
+            $this->find($user);
         }
         
+    }
+
+    public function update($fields = array(), $id = null) {
+        if(!$id && $this->isLoggedIn()) {
+            $id = $this->data()->id;
+        }
+
+        if(!$this->_db->update('users', $id, $fields)) {
+            throw new Exception('there was a problem updating');
+        }
     }
 
     public function create($fields = array()) {
@@ -94,6 +104,8 @@ class User {
 
     public function logout() {
         Session::delete($this->_sessionName);
+        Cookie::delete($this->_cookieName);
+        $this->_db->delete('users_session', array('user_id', '=', $this->_data->id));
     }
 
     public function data() {
